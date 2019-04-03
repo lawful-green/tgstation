@@ -11,13 +11,20 @@
 		commit = revinfo.commit
 		originmastercommit = revinfo.origin_commit
 	else
-		commit = rustg_git_revparse("HEAD")
-		if(commit)
-			date = rustg_git_commit_date(commit)
-		originmastercommit = rustg_git_revparse("origin/master")
-
-	// goes to DD log and config_error.txt
-	log_world(get_log_message())
+		var/list/logs = world.file2list(".git/logs/HEAD")
+		if(logs.len)
+			logs = splittext(logs[logs.len - 1], " ")
+			date = unix2date(text2num(logs[5]))
+			commit = logs[2]
+			log_world("[commit]: [date]")
+		else
+			log_world("Unable to read git logs, revision information not available")
+			originmastercommit = commit = "Unknown"
+			date = unix2date(world.timeofday)
+			return
+		logs = world.file2list(".git/logs/refs/remotes/origin/master")
+		if(logs.len)
+			originmastercommit = splittext(logs[logs.len - 1], " ")[2]
 
 /datum/getrev/proc/get_log_message()
 	var/list/msg = list()
