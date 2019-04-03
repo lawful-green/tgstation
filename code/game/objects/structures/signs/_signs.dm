@@ -9,6 +9,118 @@
 	var/buildable_sign = 1 //unwrenchable and modifiable
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 
+/obj/structure/sign/portrait
+	name = "portrait"
+	desc = "A portrait of the glorious assistant."
+	icon_state = "portrait"
+	var/blesses = 1
+
+/obj/structure/sign/portrait/penot
+	desc = "Безумный взгл&#255;д человека на портрете буквально завораживает вас. Вы бы сходили с ним в дормы!"
+	icon_state = "penot_1"
+
+/obj/structure/sign/portrait/penot/attackby(var/obj/item/I, mob/living/user, params)
+	if(istype(I,/obj/item/extinguisher))
+		if(blesses > 0)
+			user << "<span class='userdanger'>¤ Боги благовол&#255;т вам!</span>"
+			new /obj/item/reagent_containers/food/drinks/drinkingglass/milky(user.loc)
+			blesses--
+		else
+			user.visible_message("<span class='warning'>¤ Вам на миг почудилось, будто [user] ударило молнией. Боги не люб&#255;т жадин.</span>", \
+								 "<span class='userdanger'>¤ Боги не оценили вашу жадность!</span>")
+			playsound(loc, 'sound/effects/sparks1.ogg', 50, 1)
+			user.adjustBrainLoss(5)
+			user.apply_effect(3)
+
+/obj/structure/sign/portrait/by3dpick
+	desc = "Благородное ассистентское лицо взирает на вас с портрета. В вашей душе что-то помен&#255;лось и зовёт творить благие дела."
+	icon_state = "by3dpick_1"
+
+/obj/structure/sign/portrait/by3dpick/attackby(var/obj/item/I, mob/living/user, params)
+	if(istype(I,/obj/item/extinguisher))
+		if(blesses > 0)
+			user << "<span class='userdanger'>¤ Боги благовол&#255;т вам!</span>"
+			new /obj/item/toy/katana(user.loc)
+			blesses--
+		else
+			user.visible_message("<span class='warning'>¤ Вам на миг почудилось, будто [user] ударило молнией. Боги не люб&#255;т жадин.</span>", \
+								 "<span class='userdanger'>¤ Боги не оценили вашу жадность!</span>")
+			playsound(loc, 'sound/effects/sparks1.ogg', 50, 1)
+			user.adjustBrainLoss(5)
+			user.apply_effect(3)
+
+/obj/structure/sign/portrait/ruben_1
+	desc = "Потёртый временем портрет. Вы едва различаете лицо ассистента, изображенного на нём."
+	icon_state = "ruben_1"
+
+/obj/structure/sign/portrait/ruben_1/attackby(var/obj/item/I, mob/living/user, params)
+	if(istype(I,/obj/item/extinguisher))
+		if(blesses > 0)
+			user << "<span class='userdanger'>¤ Боги благовол&#255;т вам!</span>"
+			new /obj/item/clothing/head/collectable/kitty(user.loc)
+			blesses--
+		else
+			user.visible_message("<span class='warning'>¤ Вам на миг почудилось, будто [user] ударило молнией. Боги не люб&#255;т жадин.</span>", \
+								 "<span class='userdanger'>¤ Боги не оценили вашу жадность!</span>")
+			playsound(loc, 'sound/effects/sparks1.ogg', 50, 1)
+			user.adjustBrainLoss(5)
+			user.apply_effect(3)
+
+/obj/structure/sign/portrait/rodger
+	desc = "Красивое мужественное лицо сурово взирает на вас с картины. Этот человек внушает страх, уважение и необъ&#255;снимо сильную симпатию."
+	icon_state = "portrait-rodger"
+
+/obj/structure/sign/portrait/rodger/attackby(var/obj/item/I, mob/living/user, params)
+	if(istype(I,/obj/item/extinguisher))
+		if(blesses > 0)
+			user << "<span class='userdanger'>¤ Боги благовол&#255;т вам!</span>"
+			new /obj/item/reagent_containers/food/drinks/drinkingglass/milky(user.loc)
+			blesses--
+		else
+			user.visible_message("<span class='warning'>¤ Вам на миг почудилось, будто [user] ударило молнией. Боги не люб&#255;т жадин.</span>", \
+								 "<span class='userdanger'>¤ Боги не оценили вашу жадность!</span>")
+			playsound(loc, 'sound/effects/sparks1.ogg', 50, 1)
+			user.adjustBrainLoss(5)
+			user.apply_effect(3)
+
+/obj/structure/sign/portrait/ruben
+	desc = "Какой н&#255;шечка! Томный образ этого оба&#255;тельного джентльмена делает ваши трусики насквозь мокрыми."
+	icon_state = "portrait-ruben1"
+
+/obj/structure/sign/portrait/ruben/attackby(var/obj/item/I, mob/living/user, params)
+	if(istype(I,/obj/item/extinguisher))
+		if(blesses > 0)
+			user << "<span class='userdanger'>¤ Боги благовол&#255;т вам!</span>"
+			new /obj/item/clothing/head/collectable/kitty(user.loc)
+			blesses--
+		else
+			user.visible_message("<span class='warning'>¤ Вам на миг почудилось, будто [user] ударило молнией. Боги не люб&#255;т жадин.</span>", \
+								 "<span class='userdanger'>¤ Боги не оценили вашу жадность!</span>")
+			playsound(loc, 'sound/effects/sparks1.ogg', 50, 1)
+			user.adjustBrainLoss(5)
+			user.apply_effect(3)
+
+/obj/structure/sign/portrait/bisher
+	desc = "Гордый взгл&#255;д бывалого солдата, армейска&#255; выправка, мускулиста&#255; ше&#255;. Вы почти ощущаете запах напалма, источаемый портретом."
+	icon_state = "portrait-bishehlop"
+
+/obj/structure/sign/portrait/bisher/attackby(var/obj/item/I, mob/living/user, params)
+	if(istype(I,/obj/item/extinguisher))
+		if(blesses > 0)
+			user << "<span class='userdanger'>¤ Боги благовол&#255;т вам!</span>"
+			new /obj/item/clothing/glasses/eyepatch(user.loc)
+			blesses--
+		else
+			user.visible_message("<span class='warning'>¤ Вам на миг почудилось, будто [user] ударило молнией. Боги не люб&#255;т жадин.</span>", \
+								 "<span class='userdanger'>¤ Боги не оценили вашу жадность!</span>")
+			playsound(loc, 'sound/effects/sparks1.ogg', 50, 1)
+			user.adjustBrainLoss(5)
+			user.apply_effect(3)
+
+/obj/structure/sign/portrait/bisher/examine(mob/user)
+	..()
+	user.emote("salute")
+
 /obj/structure/sign/basic
 	name = "blank sign"
 	desc = "How can signs be real if our eyes aren't real?"

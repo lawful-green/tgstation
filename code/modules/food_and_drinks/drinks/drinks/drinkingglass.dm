@@ -30,6 +30,12 @@
 		icon_state = "glass_empty"
 		renamedByPlayer = FALSE //so new drinks can rename the glass
 
+/obj/item/reagent_containers/food/drinks/drinkingglass/milky
+	list_reagents = list("milk" = 50)
+	icon_state = "glass_white"
+	name = "glass of milk"
+	desc = "A glass full of delicious milk!"
+
 //Shot glasses!//
 //  This lets us add shots in here instead of lumping them in with drinks because >logic  //
 //  The format for shots is the exact same as iconstates for the drinking glass, except you use a shot glass instead.  //
@@ -91,7 +97,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola
 	name = "Nuka Cola"
 	list_reagents = list("nuka_cola" = 50)
-	
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		var/obj/item/reagent_containers/food/snacks/egg/E = I
