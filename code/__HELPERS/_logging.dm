@@ -27,7 +27,7 @@
 
 #ifdef UNIT_TESTS
 /proc/log_test(text)
-	WRITE_LOG(GLOB.test_log, text)
+	WRITE_FILE(GLOB.test_log, "\[[time_stamp()]]: [text]")
 	SEND_TEXT(world.log, text)
 #endif
 
@@ -36,58 +36,58 @@
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
 	if (CONFIG_GET(flag/log_admin))
-		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]ADMIN: [text]")
 
 /proc/log_admin_private(text)
 	GLOB.admin_log.Add(text)
 	if (CONFIG_GET(flag/log_admin))
-		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]ADMINPRIVATE: [text]")
 
 /proc/log_adminsay(text)
 	GLOB.admin_log.Add(text)
 	if (CONFIG_GET(flag/log_adminchat))
-		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: ASAY: [text]")
+		log_admin_private("ASAY: [text]")
 
 /proc/log_dsay(text)
 	if (CONFIG_GET(flag/log_adminchat))
-		WRITE_LOG(GLOB.world_game_log, "ADMIN: DSAY: [text]")
+		log_admin("DSAY: [text]")
 
 
 /* All other items are public. */
 /proc/log_game(text)
 	if (CONFIG_GET(flag/log_game))
-		WRITE_LOG(GLOB.world_game_log, "GAME: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]GAME: [text]")
 
 /proc/log_mecha(text)
 	if (CONFIG_GET(flag/log_mecha))
-		WRITE_LOG(GLOB.world_mecha_log, "MECHA: [text]")
+		WRITE_FILE(GLOB.world_mecha_log, "\[[time_stamp()]]MECHA: [text]")
 
 /proc/log_virus(text)
 	if (CONFIG_GET(flag/log_virus))
-		WRITE_LOG(GLOB.world_virus_log, "VIRUS: [text]")
+		WRITE_FILE(GLOB.world_virus_log, "\[[time_stamp()]]VIRUS: [text]")
 
 /proc/log_cloning(text, mob/initiator)
 	if(CONFIG_GET(flag/log_cloning))
-		WRITE_LOG(GLOB.world_cloning_log, "CLONING: [text]")
+		WRITE_FILE(GLOB.world_cloning_log, "\[[time_stamp()]]CLONING: [text]")
 
 /proc/log_asset(text)
-	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
+	WRITE_FILE(GLOB.world_asset_log, "\[[time_stamp()]]ASSET: [text]")
 
 /proc/log_access(text)
 	if (CONFIG_GET(flag/log_access))
-		WRITE_LOG(GLOB.world_game_log, "ACCESS: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]ACCESS: [text]")
 
 /proc/log_law(text)
 	if (CONFIG_GET(flag/log_law))
-		WRITE_LOG(GLOB.world_game_log, "LAW: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]LAW: [text]")
 
 /proc/log_attack(text)
 	if (CONFIG_GET(flag/log_attack))
-		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
+		WRITE_FILE(GLOB.world_attack_log, "\[[time_stamp()]]ATTACK: [text]")
 
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
 	if (CONFIG_GET(flag/log_manifest))
-		WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
+		WRITE_FILE(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
 
 /proc/log_bomber(atom/user, details, atom/bomb, additional_details, message_admins = TRUE)
 	var/bomb_message = "[details][bomb ? " [bomb.name] at [AREACOORD(bomb)]": ""][additional_details ? " [additional_details]" : ""]."
@@ -105,88 +105,88 @@
 
 /proc/log_say(text)
 	if (CONFIG_GET(flag/log_say))
-		WRITE_LOG(GLOB.world_game_log, "SAY: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]SAY: [text]")
 
 /proc/log_ooc(text)
 	if (CONFIG_GET(flag/log_ooc))
-		WRITE_LOG(GLOB.world_game_log, "OOC: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]OOC: [text]")
 
 /proc/log_whisper(text)
 	if (CONFIG_GET(flag/log_whisper))
-		WRITE_LOG(GLOB.world_game_log, "WHISPER: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]WHISPER: [text]")
 
 /proc/log_emote(text)
 	if (CONFIG_GET(flag/log_emote))
-		WRITE_LOG(GLOB.world_game_log, "EMOTE: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]EMOTE: [text]")
 
 /proc/log_prayer(text)
 	if (CONFIG_GET(flag/log_prayer))
-		WRITE_LOG(GLOB.world_game_log, "PRAY: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]PRAY: [text]")
 
 /proc/log_pda(text)
 	if (CONFIG_GET(flag/log_pda))
-		WRITE_LOG(GLOB.world_pda_log, "PDA: [text]")
+		WRITE_FILE(GLOB.world_pda_log, "\[[time_stamp()]]PDA: [text]")
 
 /proc/log_comment(text)
 	if (CONFIG_GET(flag/log_pda))
 		//reusing the PDA option because I really don't think news comments are worth a config option
-		WRITE_LOG(GLOB.world_pda_log, "COMMENT: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]COMMENT: [text]")
 
 /proc/log_telecomms(text)
 	if (CONFIG_GET(flag/log_telecomms))
-		WRITE_LOG(GLOB.world_telecomms_log, "TCOMMS: [text]")
+		WRITE_FILE(GLOB.world_telecomms_log, "\[[time_stamp()]]TCOMMS: [text]")
 
 /proc/log_chat(text)
 	if (CONFIG_GET(flag/log_pda))
 		//same thing here
-		WRITE_LOG(GLOB.world_pda_log, "CHAT: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]CHAT: [text]")
 
 /proc/log_vote(text)
 	if (CONFIG_GET(flag/log_vote))
-		WRITE_LOG(GLOB.world_game_log, "VOTE: [text]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]VOTE: [text]")
 
 
 /proc/log_topic(text)
-	WRITE_LOG(GLOB.world_game_log, "TOPIC: [text]")
+	WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]TOPIC: [text]")
 
 /proc/log_href(text)
-	WRITE_LOG(GLOB.world_href_log, "HREF: [text]")
+	WRITE_FILE(GLOB.world_href_log, "\[[time_stamp()]]HREF: [text]")
 
 /proc/log_sql(text)
-	WRITE_LOG(GLOB.sql_error_log, "SQL: [text]")
+	WRITE_FILE(GLOB.sql_error_log, "\[[time_stamp()]]SQL: [text]")
 
 /proc/log_qdel(text)
-	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text]")
+	WRITE_FILE(GLOB.world_qdel_log, "\[[time_stamp()]]QDEL: [text]")
 
 /proc/log_query_debug(text)
-	WRITE_LOG(GLOB.query_debug_log, "SQL: [text]")
+	WRITE_FILE(GLOB.query_debug_log, "\[[time_stamp()]]SQL: [text]")
 
 /proc/log_job_debug(text)
 	if (CONFIG_GET(flag/log_job_debug))
-		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
+		WRITE_FILE(GLOB.world_job_debug_log, "\[[time_stamp()]]JOB: [text]")
 
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
 #ifdef USE_CUSTOM_ERROR_HANDLER
-	WRITE_LOG(GLOB.world_runtime_log, text)
+	WRITE_FILE(GLOB.world_runtime_log, text)
 #endif
 	SEND_TEXT(world.log, text)
 
 /* Log to the logfile only. */
 /proc/log_runtime(text)
-	WRITE_LOG(GLOB.world_runtime_log, text)
+	WRITE_FILE(GLOB.world_runtime_log, text)
 
 /* Rarely gets called; just here in case the config breaks. */
 /proc/log_config(text)
-	WRITE_LOG(GLOB.config_error_log, text)
+	WRITE_FILE(GLOB.config_error_log, text)
 	SEND_TEXT(world.log, text)
 
 /proc/log_mapping(text)
-	WRITE_LOG(GLOB.world_map_error_log, text)
+	WRITE_FILE(GLOB.world_map_error_log, text)
 
 /* For logging round startup. */
 /proc/start_log(log)
-	WRITE_LOG(log, "Starting up round ID [GLOB.round_id].\n-------------------------")
+	WRITE_FILE(log, "Starting up round ID [GLOB.round_id].\n-------------------------")
 
 /* Close open log handles. This should be called as late as possible, and no logging should hapen after. */
 /proc/shutdown_logging()
